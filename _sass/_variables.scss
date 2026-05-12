@@ -1,0 +1,116 @@
+// ============================================================
+// PIXEL THEME — Design Tokens
+// Palette: gameboy (default) — swap via $palette variable
+// ============================================================
+
+// --- Palettes ---
+// gameboy: classic green LCD
+$gb-bg:      #0f380f;
+$gb-dark:    #306230;
+$gb-mid:     #8bac0f;
+$gb-light:   #9bbc0f;
+$gb-white:   #c4cfa1;
+
+// nes: warm cream + blue
+$nes-bg:     #1a1a2e;
+$nes-dark:   #16213e;
+$nes-mid:    #0f3460;
+$nes-light:  #e94560;
+$nes-white:  #f5f5f5;
+
+// cga: cyan/magenta classic
+$cga-bg:     #000000;
+$cga-dark:   #0a0a0a;
+$cga-mid:    #ff00ff;
+$cga-light:  #00ffff;
+$cga-white:  #ffffff;
+
+// amber: amber CRT monitor
+$amb-bg:     #0a0800;
+$amb-dark:   #1a1200;
+$amb-mid:    #b85c00;
+$amb-light:  #ff8c00;
+$amb-white:  #ffcc44;
+
+// synthwave
+$sw-bg:      #0d0015;
+$sw-dark:    #1a002b;
+$sw-mid:     #7b00ff;
+$sw-light:   #ff00c8;
+$sw-white:   #e0d0ff;
+
+// --- Active Palette (gameboy default) ---
+$color-bg:        $gb-bg;
+$color-surface:   $gb-dark;
+$color-border:    $gb-mid;
+$color-accent:    $gb-light;
+$color-text:      $gb-white;
+$color-dim:       rgba($gb-white, 0.5);
+$color-highlight: $gb-white;
+
+// --- Typography ---
+// Press Start 2P = pixel font from Google Fonts
+$font-pixel:   'Press Start 2P', monospace;
+$font-mono:    'JetBrains Mono', 'Courier New', monospace;
+
+$fs-xs:   0.5rem;    // 8px @ 16px base
+$fs-sm:   0.625rem;  // 10px
+$fs-base: 0.75rem;   // 12px (pixel fonts read small — use 12px body)
+$fs-md:   0.875rem;  // 14px
+$fs-lg:   1rem;      // 16px
+$fs-xl:   1.25rem;   // 20px
+$fs-2xl:  1.5rem;
+$fs-3xl:  2rem;
+
+$lh-tight:  1.4;
+$lh-normal: 1.8;
+$lh-loose:  2.2;
+
+// --- Spacing (pixel-grid based: multiples of 8) ---
+$sp-1: 0.5rem;   // 8px
+$sp-2: 1rem;     // 16px
+$sp-3: 1.5rem;   // 24px
+$sp-4: 2rem;     // 32px
+$sp-6: 3rem;     // 48px
+$sp-8: 4rem;     // 64px
+
+// --- Borders ---
+$border-px:   2px solid $color-border;   // standard pixel border
+$border-heavy: 4px solid $color-accent;  // heavy pixel border
+
+// --- Pixel Shadow (inset pixel art style) ---
+// box-shadow: inset -4px -4px 0 $color-surface, 4px 4px 0 $color-surface;
+@mixin pixel-box($bg: $color-surface, $border: $color-border) {
+  background: $bg;
+  border: $border-px;
+  image-rendering: pixelated;
+  box-shadow:
+    inset -2px -2px 0 rgba(0,0,0,0.5),
+    inset 2px 2px 0 rgba(255,255,255,0.1);
+}
+
+@mixin pixel-btn($bg: $color-accent, $text: $color-bg) {
+  background: $bg;
+  color: $text;
+  font-family: $font-pixel;
+  font-size: $fs-xs;
+  padding: $sp-1 $sp-2;
+  border: none;
+  cursor: pointer;
+  image-rendering: pixelated;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.8);
+  transition: box-shadow 0.08s, transform 0.08s;
+  &:hover {
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.8);
+    transform: translate(2px, 2px);
+  }
+  &:active {
+    box-shadow: 0 0 0 rgba(0,0,0,0.8);
+    transform: translate(4px, 4px);
+  }
+}
+
+// --- Layout ---
+$max-w: 900px;
+$nav-h: 56px;

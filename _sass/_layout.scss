@@ -1,0 +1,260 @@
+// ============================================================
+// PIXEL THEME — Layout
+// ============================================================
+@import 'variables';
+
+// --- Pixel Nav ---
+.pixel-nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  height: $nav-h;
+  background: $color-bg;
+  border-bottom: $border-heavy;
+  display: flex;
+  align-items: center;
+
+  &__inner {
+    max-width: $max-w;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 $sp-3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    font-family: $font-pixel;
+    font-size: $fs-sm;
+    color: $color-accent;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: $sp-1;
+
+    // Blinking cursor
+    &::after {
+      content: '▊';
+      animation: blink 1s step-end infinite;
+    }
+  }
+
+  &__links {
+    display: flex;
+    gap: $sp-3;
+    list-style: none;
+
+    a {
+      font-family: $font-pixel;
+      font-size: $fs-xs;
+      color: $color-dim;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: color 0.1s;
+
+      &:hover, &.active { color: $color-accent; }
+    }
+  }
+
+  &__toggle {
+    display: none;
+    background: none;
+    border: $border-px;
+    color: $color-accent;
+    padding: $sp-1;
+    cursor: pointer;
+    font-family: $font-pixel;
+    font-size: $fs-xs;
+  }
+
+  @media (max-width: 640px) {
+    &__links {
+      display: none;
+      position: absolute;
+      top: $nav-h;
+      left: 0; right: 0;
+      background: $color-bg;
+      border-bottom: $border-heavy;
+      flex-direction: column;
+      padding: $sp-2 $sp-3 $sp-3;
+      gap: $sp-2;
+      &.open { display: flex; }
+    }
+    &__toggle { display: block; }
+  }
+}
+
+// --- Page Wrapper ---
+.pixel-wrapper {
+  max-width: $max-w;
+  margin: 0 auto;
+  padding: $sp-4 $sp-3;
+}
+
+// --- Section header ---
+.section-title {
+  font-family: $font-pixel;
+  font-size: $fs-sm;
+  color: $color-accent;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: $sp-3;
+  display: flex;
+  align-items: center;
+  gap: $sp-2;
+
+  &::before { content: '> '; color: $color-dim; }
+
+  &__count {
+    font-size: $fs-xs;
+    background: $color-surface;
+    border: 1px solid $color-border;
+    padding: 2px 6px;
+    color: $color-dim;
+  }
+}
+
+// --- HP Bar (reading progress) ---
+.hp-bar {
+  position: fixed;
+  top: $nav-h;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  z-index: 300;
+  background: $color-accent;
+  transition: width 0.1s linear;
+  // pixel-style notched bar
+  image-rendering: pixelated;
+
+  &::after {
+    content: '♥';
+    position: absolute;
+    right: -8px;
+    top: -6px;
+    font-size: 14px;
+    color: $color-accent;
+  }
+}
+
+// --- Boot sequence overlay ---
+.boot-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: $color-bg;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: $sp-2;
+  font-family: $font-pixel;
+  font-size: $fs-xs;
+  color: $color-accent;
+  transition: opacity 0.4s ease;
+
+  .boot-line {
+    opacity: 0;
+    animation: boot-in 0.2s forwards;
+  }
+
+  @for $i from 1 through 8 {
+    .boot-line:nth-child(#{$i}) {
+      animation-delay: #{($i - 1) * 0.3}s;
+    }
+  }
+}
+
+@keyframes boot-in {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+// --- Footer ---
+.pixel-footer {
+  border-top: $border-heavy;
+  padding: $sp-4 $sp-3;
+  margin-top: $sp-8;
+
+  &__inner {
+    max-width: $max-w;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: $sp-2;
+    flex-wrap: wrap;
+
+    @media (max-width: 640px) { flex-direction: column; text-align: center; }
+  }
+
+  &__brand {
+    font-family: $font-pixel;
+    font-size: $fs-xs;
+    color: $color-dim;
+    text-transform: uppercase;
+  }
+
+  &__links {
+    display: flex;
+    gap: $sp-3;
+    list-style: none;
+
+    a {
+      font-family: $font-pixel;
+      font-size: $fs-xs;
+      color: $color-dim;
+      text-transform: uppercase;
+      text-decoration: none;
+      &:hover { color: $color-accent; }
+    }
+  }
+
+  &__credits {
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    color: $color-dim;
+    text-align: center;
+    margin-top: $sp-2;
+    max-width: $max-w;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// --- Archive styles ---
+.archive-year {
+  margin-bottom: $sp-4;
+
+  &__heading {
+    font-size: $fs-sm;
+    color: $color-accent;
+    border-bottom: $border-px;
+    padding-bottom: $sp-1;
+    margin-bottom: $sp-2;
+    &::before { content: 'YEAR_'; }
+  }
+
+  &__list {
+    list-style: none;
+  }
+
+  &__date {
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    color: $color-dim;
+    display: inline-block;
+    min-width: 80px;
+  }
+
+  &__link {
+    font-family: $font-mono;
+    font-size: $fs-sm;
+    color: $color-text;
+    &:hover { color: $color-accent; }
+  }
+}

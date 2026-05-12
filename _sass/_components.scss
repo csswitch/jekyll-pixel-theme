@@ -1,0 +1,357 @@
+// ============================================================
+// PIXEL THEME — Components
+// ============================================================
+@import 'variables';
+
+// --- Post Grid (home) ---
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: $sp-3;
+  margin-top: $sp-3;
+}
+
+// --- Post Card ---
+.post-card {
+  @include pixel-box;
+  padding: $sp-2;
+  display: flex;
+  flex-direction: column;
+  gap: $sp-1;
+  text-decoration: none;
+  transition: transform 0.08s, box-shadow 0.08s;
+
+  &:hover {
+    transform: translate(-2px, -2px);
+    box-shadow:
+      4px 4px 0 $color-accent,
+      inset -2px -2px 0 rgba(0,0,0,0.5),
+      inset 2px 2px 0 rgba(255,255,255,0.1);
+    text-decoration: none;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+
+  &__title {
+    font-family: $font-pixel;
+    font-size: $fs-xs;
+    color: $color-accent;
+    text-transform: uppercase;
+    line-height: $lh-tight;
+  }
+
+  &__excerpt {
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    color: $color-dim;
+    flex: 1;
+    line-height: $lh-normal;
+  }
+
+  &__meta {
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    color: $color-dim;
+    display: flex;
+    justify-content: space-between;
+    margin-top: $sp-1;
+  }
+
+  &__read-more {
+    font-family: $font-pixel;
+    font-size: $fs-xs;
+    color: $color-bg;
+    background: $color-accent;
+    padding: 4px 8px;
+    align-self: flex-start;
+    text-transform: uppercase;
+    margin-top: $sp-1;
+    display: inline-block;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+  }
+}
+
+// --- Featured Card (first post, full width) ---
+.post-card--featured {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: $sp-3;
+  background: $color-surface;
+  border: $border-heavy;
+
+  .post-card__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $sp-1;
+  }
+
+  .post-card__badge {
+    font-family: $font-pixel;
+    font-size: $fs-xs;
+    color: $color-bg;
+    background: $color-accent;
+    padding: 4px 8px;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+    white-space: nowrap;
+    align-self: flex-start;
+  }
+
+  .post-card__title {
+    font-size: $fs-sm;
+  }
+
+  .post-card__excerpt {
+    font-size: $fs-sm;
+  }
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+  }
+}
+
+// --- Tag Chip ---
+.tag-chip {
+  font-family: $font-pixel;
+  font-size: 0.45rem;
+  color: $color-bg;
+  background: $color-border;
+  padding: 2px 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-block;
+  text-decoration: none;
+
+  &:hover {
+    background: $color-accent;
+    text-decoration: none;
+    color: $color-bg;
+  }
+}
+
+// --- Post Header ---
+.post-header {
+  margin-bottom: $sp-4;
+  border-bottom: $border-px;
+  padding-bottom: $sp-3;
+
+  &__tags { margin-bottom: $sp-2; }
+
+  &__title {
+    font-family: $font-pixel;
+    font-size: $fs-lg;
+    color: $color-accent;
+    text-transform: uppercase;
+    line-height: $lh-tight;
+    margin-bottom: $sp-2;
+  }
+
+  &__meta {
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    color: $color-dim;
+    display: flex;
+    gap: $sp-2;
+    flex-wrap: wrap;
+
+    &::before {
+      content: '[ ';
+      color: $color-border;
+    }
+    &::after {
+      content: ' ]';
+      color: $color-border;
+    }
+  }
+}
+
+// --- Post Body ---
+.post-body {
+  @include pixel-box;
+  padding: $sp-3;
+  font-family: $font-mono;
+  font-size: $fs-md;
+  line-height: $lh-loose;
+  color: $color-text;
+  margin-bottom: $sp-4;
+
+  // Style markdown content
+  h2, h3, h4 { color: $color-accent; margin-top: $sp-4; }
+  blockquote {
+    border-left: 4px solid $color-accent;
+    padding-left: $sp-2;
+    margin: $sp-2 0;
+    color: $color-dim;
+    font-style: normal;
+    &::before { content: '> '; color: $color-border; }
+  }
+  ul, ol {
+    padding-left: $sp-3;
+    margin-bottom: $sp-2;
+    li { margin-bottom: 4px; }
+  }
+  ul li::marker { color: $color-accent; content: '▸ '; }
+}
+
+// --- Post Nav (prev/next) ---
+.post-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $sp-2;
+  margin-top: $sp-4;
+
+  @media (max-width: 640px) { grid-template-columns: 1fr; }
+
+  &__item {
+    @include pixel-box;
+    padding: $sp-2;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: transform 0.08s;
+    &:hover { transform: translate(-2px, -2px); text-decoration: none; }
+  }
+
+  &__dir {
+    font-family: $font-pixel;
+    font-size: $fs-xs;
+    color: $color-dim;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    font-family: $font-pixel;
+    font-size: $fs-xs;
+    color: $color-accent;
+    text-transform: uppercase;
+    line-height: $lh-tight;
+  }
+
+  &__next { text-align: right; }
+}
+
+// --- Home Hero ---
+.home-hero {
+  text-align: center;
+  padding: $sp-8 $sp-3 $sp-6;
+  border-bottom: $border-px;
+  margin-bottom: $sp-4;
+
+  &__sprite {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: $sp-2;
+    animation: float 2s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  &__title {
+    font-family: $font-pixel;
+    font-size: $fs-xl;
+    color: $color-accent;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: $sp-2;
+  }
+
+  &__subtitle {
+    font-family: $font-mono;
+    font-size: $fs-md;
+    color: $color-dim;
+    margin-bottom: $sp-3;
+  }
+
+  &__btns {
+    display: flex;
+    gap: $sp-2;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+// --- Pixel Button ---
+.btn-pixel {
+  @include pixel-btn;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.btn-pixel--outline {
+  @include pixel-btn($color-bg, $color-accent);
+  border: $border-px;
+  box-shadow: 4px 4px 0 $color-border;
+}
+
+// --- Pagination ---
+.pagination {
+  display: flex;
+  gap: $sp-2;
+  justify-content: center;
+  align-items: center;
+  margin-top: $sp-4;
+  font-family: $font-pixel;
+  font-size: $fs-xs;
+
+  a { @include pixel-btn; text-decoration: none; }
+
+  .current-page {
+    color: $color-accent;
+    padding: $sp-1 $sp-2;
+    border: $border-px;
+  }
+}
+
+// --- Tag Cloud ---
+.tag-cloud {
+  margin-bottom: $sp-4;
+  .tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $sp-1;
+  }
+}
+
+.tag-star {
+  @include pixel-box($color-surface, $color-border);
+  font-family: $font-pixel;
+  font-size: $fs-xs;
+  color: $color-accent;
+  padding: 4px 10px;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.08s;
+  &:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 $color-accent;
+    text-decoration: none;
+  }
+}
+
+// --- Copy button ---
+.copy-btn {
+  @include pixel-btn($color-surface, $color-accent);
+  font-size: $fs-xs;
+  position: absolute;
+  top: $sp-1;
+  right: $sp-1;
+  padding: 2px 8px;
+  border: 1px solid $color-border;
+
+  &.copied {
+    background: darken($gb-light, 10%);
+    color: $color-bg;
+  }
+}

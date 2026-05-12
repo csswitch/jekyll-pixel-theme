@@ -1,0 +1,42 @@
+---
+layout: default
+---
+
+<div class="pixel-wrapper">
+  <article>
+    <header class="post-header">
+      <div class="post-header__tags">
+        {% for tag in page.tags %}
+        <a href="{{ '/tags#' | append: tag | slugify | relative_url }}" class="tag-chip">{{ tag }}</a>
+        {% endfor %}
+      </div>
+      <h1 class="post-header__title">{{ page.title }}</h1>
+      <div class="post-header__meta">
+        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+        <span>{{ content | number_of_words }} words</span>
+        {% if page.author %}<span>{{ page.author }}</span>{% endif %}
+      </div>
+    </header>
+
+    <div class="post-body">
+      {{ content }}
+    </div>
+  </article>
+
+  <!-- Post Nav -->
+  <nav class="post-nav" aria-label="Post navigation">
+    {% if page.previous.url %}
+    <a href="{{ page.previous.url | relative_url }}" class="post-nav__item">
+      <span class="post-nav__dir">◀ PREV</span>
+      <span class="post-nav__title">{{ page.previous.title }}</span>
+    </a>
+    {% else %}<div></div>{% endif %}
+
+    {% if page.next.url %}
+    <a href="{{ page.next.url | relative_url }}" class="post-nav__item post-nav__next">
+      <span class="post-nav__dir">NEXT ▶</span>
+      <span class="post-nav__title">{{ page.next.title }}</span>
+    </a>
+    {% else %}<div></div>{% endif %}
+  </nav>
+</div>

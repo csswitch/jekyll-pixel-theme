@@ -1,0 +1,199 @@
+// ============================================================
+// PIXEL THEME — Base Styles
+// ============================================================
+@import 'variables';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: $color-bg;
+  color: $color-text;
+  font-family: $font-pixel;
+  font-size: $fs-base;
+  line-height: $lh-normal;
+  min-height: 100vh;
+  // pixelated rendering for crisp edges
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none; // deliberately OFF for pixel font
+}
+
+// --- Pixel tile background ---
+.pixel-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-color: $color-bg;
+  // 8×8 grid dots via repeating-linear-gradient
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 7px,
+      rgba($color-surface, 0.3) 7px,
+      rgba($color-surface, 0.3) 8px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 7px,
+      rgba($color-surface, 0.3) 7px,
+      rgba($color-surface, 0.3) 8px
+    );
+}
+
+// --- CRT Scanlines overlay ---
+.scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0,0,0,0.08) 3px,
+    rgba(0,0,0,0.08) 4px
+  );
+  animation: flicker 8s infinite;
+}
+
+@keyframes flicker {
+  0%, 95%, 100% { opacity: 1; }
+  96%, 98% { opacity: 0.97; }
+  97% { opacity: 0.92; }
+}
+
+// --- Typography ---
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-pixel;
+  color: $color-accent;
+  line-height: $lh-tight;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: $sp-2;
+}
+
+h1 { font-size: $fs-lg; }
+h2 { font-size: $fs-md; }
+h3 { font-size: $fs-base; }
+h4 { font-size: $fs-sm; }
+
+// Blinking cursor after headings (optional)
+.pixel-cursor::after {
+  content: '▊';
+  animation: blink 1s step-end infinite;
+  color: $color-accent;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+p {
+  font-family: $font-mono;
+  font-size: $fs-md;
+  line-height: $lh-normal;
+  margin-bottom: $sp-2;
+  color: $color-text;
+}
+
+a {
+  color: $color-accent;
+  text-decoration: none;
+  &:hover { text-decoration: underline; }
+}
+
+// --- Code ---
+code, pre {
+  font-family: $font-mono;
+  font-size: $fs-sm;
+  background: $color-surface;
+  color: $color-accent;
+}
+
+code {
+  padding: 2px 6px;
+  border: 1px solid $color-border;
+}
+
+pre {
+  @include pixel-box;
+  padding: $sp-2;
+  overflow-x: auto;
+  margin-bottom: $sp-3;
+  position: relative;
+  &::before {
+    content: '> SYSTEM OUTPUT';
+    display: block;
+    font-size: $fs-xs;
+    color: $color-dim;
+    margin-bottom: $sp-1;
+    font-family: $font-pixel;
+  }
+  code { background: transparent; border: none; padding: 0; }
+}
+
+// --- Tables ---
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: $font-mono;
+  font-size: $fs-sm;
+  margin-bottom: $sp-3;
+  border: $border-px;
+}
+
+th {
+  background: $color-surface;
+  color: $color-accent;
+  font-family: $font-pixel;
+  font-size: $fs-xs;
+  padding: $sp-1 $sp-2;
+  text-align: left;
+  text-transform: uppercase;
+  border-bottom: $border-heavy;
+}
+
+td {
+  padding: $sp-1 $sp-2;
+  border-bottom: 1px solid $color-surface;
+  color: $color-text;
+}
+
+// --- HR ---
+hr {
+  border: none;
+  border-top: $border-px;
+  margin: $sp-4 0;
+}
+
+// --- Images ---
+img {
+  max-width: 100%;
+  image-rendering: pixelated;
+  border: $border-px;
+}
+
+// --- Selection ---
+::selection {
+  background: $color-accent;
+  color: $color-bg;
+}
+
+// --- Scrollbar ---
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: $color-bg; }
+::-webkit-scrollbar-thumb {
+  background: $color-border;
+  &:hover { background: $color-accent; }
+}

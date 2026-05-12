@@ -1,0 +1,40 @@
+title: "Pixel Blog"
+description: "Your 8-bit adventures in code"
+url: "https://csswitch.github.io"
+baseurl: "/jekyll-pixel-theme"
+author:
+  name: "Player One"
+  email: "player@example.com"
+
+# Pixel Theme Configuration
+pixel:
+  palette: "gameboy"       # gameboy | nes | cga | amber | synthwave
+  scanlines: true          # CRT scanline overlay
+  cursor_blink: true       # blinking pixel cursor in nav/headings
+  boot_sequence: true      # matrix-style boot text on first load
+  tile_bg: true            # tiled pixel pattern background
+  font_size: "normal"      # small | normal | large
+
+paginate: 6
+paginate_path: "/page:num/"
+
+plugins:
+  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+
+permalink: /:year/:month/:day/:title/
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - node_modules
